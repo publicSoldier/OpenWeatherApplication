@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace OpenWeatherApiRequest.Models
+namespace OpenWeatherAppication.Models
 {
     public class Main
     {

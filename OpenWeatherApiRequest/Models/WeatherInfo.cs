@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+using OpenWeatherAppication.Models;
 
-namespace OpenWeatherApiRequest.Models
+namespace OpenWeatherAppication.Models
 {
     public class WeatherInfo
     {
