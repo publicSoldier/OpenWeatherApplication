@@ -1,11 +1,9 @@
-﻿using Newtonsoft.Json;
-using NLog;
-using OpenWeatherApiRequest.Models;
+﻿using NLog;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace OpenWeatherApiRequest
+namespace OpenWeatherAppication
 {
     class Program
     {
@@ -18,7 +16,9 @@ namespace OpenWeatherApiRequest
 
         public static async Task StartAsync()
         {
-            WeatherData weatherData = new WeatherData();
+            HttpClient httpClient = new HttpClient();
+
+            OpenWeatherClient openWeatherClient = new OpenWeatherClient(httpClient);
 
             while (true)
             {
@@ -29,14 +29,12 @@ namespace OpenWeatherApiRequest
 
                 try
                 {
-                    info = await weatherData.GetInfoAsync(city);
+                    info = await openWeatherClient.GetInfoAsync(city);
                 }
-
                 catch (Exception ex)
                 {
                     Console.Write("\nWrong name if city");
-                    _logger.Info($"City: {city}");
-                    _logger.Error(ex.Message);
+                    _logger.Error($"City - {city}, message - {ex.Message}");
                 }
 
                 Console.WriteLine($"\n{info}");

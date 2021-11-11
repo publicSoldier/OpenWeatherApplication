@@ -1,22 +1,24 @@
 ﻿using Newtonsoft.Json;
-using OpenWeatherApiRequest.Models;
-using System;
-using System.Collections.Generic;
+using OpenWeatherAppication.Models;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
 
-namespace OpenWeatherApiRequest
+namespace OpenWeatherAppication
 {
-    public class WeatherData
+    public class OpenWeatherClient
     {
         private readonly string _apiId;
 
-        public WeatherData()
+        private readonly HttpClient _httpClient;
+
+        public OpenWeatherClient(HttpClient httpClient)
         {
             _apiId = ConfigurationManager.AppSettings["apiId"];
+
+            _httpClient = httpClient;
         }
 
         public async Task<string> GetInfoAsync(string city)
@@ -35,9 +37,7 @@ namespace OpenWeatherApiRequest
 
         private async Task<WeatherInfo> GetWeatherAsync(string city)
         {     
-            HttpClient httpClient = new HttpClient();
-
-            var response = await httpClient.GetAsync($"http://api.openweathermap.org/data/2.5/weather?q={city}&units=metric&appid={_apiId}");
+            var response = await _httpClient.GetAsync($"http://api.openweathermap.org/data/2.5/weather?q={city}&units=metric&appid={_apiId}");
             
             response.EnsureSuccessStatusCode();
 
